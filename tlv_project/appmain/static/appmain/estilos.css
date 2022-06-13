@@ -1,0 +1,17 @@
+body {    
+    background-color: beige;
+    color: black;    
+}
+.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+
+
+
+h1{
+    color: firebrick;
+    background-color: blue;
+    
+}
