@@ -1,8 +1,7 @@
 {% extends 'appmain/layout.html' %}
 {% block content %}
-    {% for cli in data %}
-    <ul class="list-group">
-        <li class="list-group-item">Rut: {{cli.rut}} Nombre: {{cli.nombre}} Apellido: {{cli.apellido}} Email: {{cli.correo}} Telefono: {{cli.telefono}}</li>
-    </ul>
+<h1>Clientes Ingresados</h1>
+    {% for cli in data %}  
+        Rut: {{cli.rut}} Nombre: {{cli.nombre}} Apellido: {{cli.apellido}} Email: {{cli.correo}} Telefono: {{cli.telefono}} <br>
     {% endfor %}
 {% endblock%}
