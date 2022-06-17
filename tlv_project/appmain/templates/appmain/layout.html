@@ -24,7 +24,13 @@
           <a class="nav-item nav-link active" href="http://127.0.0.1:8000/">Home </a>
           <a class="nav-item nav-link" href="{% url 'appmain-clientes' %}">Clientes</a>
           <a class="nav-item nav-link" href="{% url 'appmain-proveedor' %}">Registro Proveedores</a>
-          <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'perfil' %}">Perfil</a>
+          {% else %} 
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'registro' %}">Registro</a>
+          {% endif %}
         </div>
       </div>
   </nav> 
