@@ -1,14 +1,9 @@
 {% extends 'appmain/layout.html' %}
-<!--{% load crispy_forms_tags %}-->
+{% load crispy_forms_tags %}
 {% block content %}
-<form action= /recibirReclamo method="POST">
-    {% csrf_token %}
-    <!--{{form|crispy}}-->
-    <input name="email" type="email" placeholder="Email"/>
-    <textarea name="reclamo"></textarea>
-    <button>Enviar</button>
-</form>
-{{mensaje}} {{email}}
+    <form  method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit">Enviar Formulario</button>
+    </form>
 {% endblock content %}
-
-

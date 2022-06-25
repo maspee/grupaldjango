@@ -1,134 +1,140 @@
 {% extends "appmain/layout.html" %}
 {% block content %}
 
-    <h1>Guía para la generación de entorno virtual con Django y generación de templates HTML</h1>
-    <ol>
-        <li>Crear carpeta contenedora del futuro proyecto a desarrollar</li>
-        <li>Abrir terminal de editor de código</li>
-        <li>Crear entorno virtual con el comando "python -m venv (nombre del entorno virtual)" + ENTER</li>
-        <li>Activar el entorno virtual con el comando "(nombre del entorno virtual)\Scripts\activate" + ENTER</li>
-        <li>Una vez activo el entorno virtual, instalar Django con el comando “pip install Django” + ENTER</li>
-        <li>Una vez descargado el paquete de Django, confirmar que esté correctamente instalado con el comando “pip freeze” + ENTER para que muestre todas las librerías disponibles en el entorno virtual.</li>
-        <li>Una vez confirmada la instalación de Django, ejecutar “django-admin” para visualizar la lista de comandos que posee la librería django.</li>
-        <li>Una vez desplegada la lista de comandos de django, debemos generar nuestro primer proyecto en django, para esto debemos ejecutar el comando “django-admin startproject nombre del proyecto” + ENTER</li>
-        <li>Una vez creado el proyecto, verifiquemos que nos ha creado el proyecto que hemos decidido con sus respectivas carpetas “.py”.</li>
-        <li>Una vez verificado que se ha creado correctamente el proyecto con sus respectivas carpetas .py debemos correr django para verificar que las conexiones están OK, para esto debemos ejecutar “python manage.py runserver” + ENTER</li>
-        <li>Una vez ejecutado el comando anterior en la terminal del editor de código, accedemos a la ruta "http://127.0.0.1" que nos generó para visualizar nuestra página.</li>
-        <li>Posteriormente continuaremos creando un aplicativo ejecutando en la terminal “python manage.py startapp nombredelaplicativo”</li>
-        <li>Se genera un archivo urls.py en el aplicativo, copiando la misma estructura de código que trae por defecto la carpeta del proyecto principal, borrando la importación de admin y el path de admin, ya que, este es propio del urls.py del archivo principal del proyecto.</li>
-        <li>Posteriormente nos dirigimos al views.py (de la carpeta aplicativa) para crear nuestra función que renderizara nuestra futura vista HTML, (que crearemos más delante). Para activar la función render debemos importarla desde Django con la siguiente sentencia “from django.shortcuts import render”. Para la generación de la función, debemos darle como parámetro “request” + la ruta (ejemplo: (request,'appmain/home.html')) donde va a estar contenido nuestro HTML que vamos a crear posteriormente.</li>
-        <p>from django.shortcuts import render <br>
-            def yaru(request): <br>
-            &nbsp &nbspreturn render(request,'appmain/home.html')</p>
-        <li>Dentro del aplicativo appmain, creamos la carpeta "templates\appmain" que contendrá nuestros archivos html</li>
-        <li>Se crea la plantilla de formato html que contendrá toda la estructura de nuestra página home</li>
-        <li>En urls.py del aplicativo (appmain) enrutamos nuestra plantilla home con nuestro archivo views.py del aplicativo. Para esto debemos importar lo siguiente:</li>
-        <p>from django.urls import path <br>
-            from . import views <br>
-            urlpatterns = [ <br>
-            &nbsp &nbsppath('', views.yaru, name ='appmain' ) <br>
-            ]
-        </p>
-            
-        <li>En el urls.py del archivo principal realizamos el enrutamiento con el archivo urls.py del aplicativo de la siguiente forma:</li>
-        <p>from django.contrib import admin <br>
-            from django.urls import path, include <br>
-            urlpatterns = [ <br>
-                &nbsp &nbsppath('admin/', admin.site.urls), <br>
-                &nbsp &nbsppath('', include('appmain.urls')) <br>
-            ]</p>
-        <li>Nos dirigimos al apps.py del aplicativo para copiar el nombre de la clase "AppmainConfig"</li>
-        <li>Posteriormente nos dirigimos a settings.py del aplicativo principal para realizar la instalación del aplicativo appmain:</li>
-        <p>
-            INSTALLED_APPS = [ <br>
-             'appmain.apps.AppmainConfig', <br>
-             'django.contrib.admin', <br>
-             'django.contrib.auth', <br>
-             'django.contrib.contenttypes', <br>
-             'django.contrib.sessions', <br>
-             'django.contrib.messages', <br>
-             'django.contrib.staticfiles', <br>
-            ] <br>  
-        </p>
-        <li>En la ventana terminal ejecutar el comando python manage.py runserver</li>
-    </ol>
-    <h1>Guia de contenido dinamico</h1>
-    <ol>
-        <li>Dentro de la aplicacion "appmain" se crea la carpeta "static" y dentro de esta carpeta, se crea la carpeta "css".</li>
-        <li>Dentro de la ruta "static\css" creamos una hoja de estilo, en este caso con el nombre "estilos.css".</li>
-        <li>Se ingresan aspectos de bootstrap, tal como colo de fondo, margen, etc.</li>
-        <p>
-            html, body { <br>
-                &nbsp &nbsppathbackground-color: bisque; <br>
-                &nbsp &nbsppath color: black; <br>
-                &nbsp &nbsppathmargin-top: auto; <br>
-            } <br>
-            h1{ <br>
-                 color: brown; <br>
-            }</p>
-        <li>En nuestra pagina "home.html" utilizamos los CDN de Bootstrap en nuestro <head>, y dentro del <body>: <br>
-            &nbsp< link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> <br>
-            &nbsp< script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script><br>
-            &nbsp< script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script></li>
-        <li>En la pagina "home.html" recien creada debemos cargar la referencia a un objeto estatico. Definimos en la linea 1:<br>
-            "{ porcetaje load static porcentaje }"</li>
-        <li>En nuestra pagina "home.html" debemos referenciar nuestra hoja de estilo "estilos.css", dentro de la etiqueta < head >, con la siguiente instruccion: <br>
-            &nbsp< link rel="stylesheet" type='text/css' href="{% static 'css/estilos.css' %"}></li>
-        <li>Definimos ahora una nueva plantilla, para cargar clientes en nuestra base de datos. Ocupamos el modelo, por lo que abrimos el archivo models.py. Dejamos la importacion de models definida por defecto y creamos una clase de nombre Cliente (siempre en singular). Nuestra clase debe recibir como parametro "models.Models". De esta forma django entiende que esta clase se transforma en una base de datos.
-            from django.db import models:</li>
-            <p>
-            class Cliente(models.Model):<br>
-            &nbsp &nbsprut=models.CharField(max_length=10, unique=True)<br>
-            &nbsp &nbspnombre=models.CharField(max_length=50)<br>
-            &nbsp &nbspapellido=models.CharField(max_length=100)<br>
-            &nbsp &nbspcorreo=models.CharField(max_length=50)<br>
-            &nbsp &nbsptelefono=models.IntegerField()</p>
-        <li>Para migrar esta clase a una tabla en la base de datos, debemos correr el script:<br>  
-            python manage.py makemigrations</li>
-        <li>Confirmamos la migracion de esta tabla con el script:<br>
-            python manage.py migrate</li>
-        <li>En nuestro terminal, debemos crear un super usuario de administracion a nivel de proyecto. Debemos estar dentro de la carpeta del proyecto raiz, para ejecutar el script: <br>
-            python manage.py createsuperuser<br>
-            Ingresamos usuario, correo y contraseña.</li>
-        <li>En "admin.py" del aplicativo, ingresamos un from para importar desde el archivo models, la clase cliente. Y le indicamos a la administracion que en su sitio registre el uso de la administracion de la tabla Cliente.<br>
-            from . models import Cliente<br>
-            admin.site.register(Cliente)  </li>
-        <li>Levantamos el servidor con el comando runserver e ingresamos /admin en la direccion del servidor:<br>
-            http://127.0.0.1:8000/admin/</li>
-        <li>Ingresamos usuario y contraseña de super usuario.</li>
-        <li>Ahora podemos ingresar clientes. En nuestro caso, ingresamos cinco clientes.</li>
-        <li>Ingresamos a "urls.py" del aplicativo y agregamos path para ver todos los datos de la tabla clientes:<br>
-            path('clientes', views.clientes)</li>
-        <li>En "views.py" del aplicativo, definimos la funcion clientes:<br>
-            def clientes(request):<br>
-            &nbsp&nbsp    return render(request, 'appmain.clientes.html')</li>
-        <li>En la carpeta "templates\appmain" agregamos un nuevo archivo, de nombre "clientes.html".</li>
-        <li>En "views.py" del aplicativo, importamos de models el Cliente:<br>
-            from .models import Cliente</li>
-        <li>Para consultar los clientes, debemos ingresar una query, por lo que en "views.py" del aplicativo, modificamos la funcion agregando un diccionario vacio. Creamos una variable cliente, que es igual a Clientes de la base de datos y buscamos dentros de sus objetos, todos sus datos.<br>
-            Entonces en el diccionario vacio, mandamos todos los clientes que se consultan a nivel de base de datos.</li>
-        <li>En el archivo "clientes.html", iteramos los datos a traves de un for. Abrimos llaves { % % } para inciar for y cerramos con { % endfor % }:<br>
-            { % for cli in data % }<br>
-            &nbsp&nbsp    { { cli.apellido } }<br>
-            {% endfor % }</li>
-        <li>Block content. Creamos un archivo "layout.html" dentro de "templates\appmain" la que contendra la base de nuestro html. con ! + Enter, cargamos la estructura HTML por defecto. Agregamos la referencia al archivo "estilos.css" y los links de bootstrap: <br>
-            < link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" ><br>
-            < script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script ><br>
-            < script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script ><br>
-            < link rel="stylesheet" type="text/css" href="{porcentaje_static 'appmain/estilos.css' porcentaje}" ></li>
-        <li>Definimos un navbar y footer, basandonos en el esquema que necesitemos.</li>
-        <li>Dentro del <body> de nuestra pagina "layout.html" agreamos las lineas  block content, las que nos permiten agregar contenido, de las paginas html de nuestro proyecto.<br>
-            {porcentaje block content porcentaje}<br>
-            <br>
-            {porcentaje endblock porcentaje}<br></li>
-        <li>Incluimos en la linea 1 de "layout.html" la referencia {porcentaje load static porcentaje}</li>
-        <li>En nuestra pagina "home.html" eliminamos todo el contenido de estructura de la pagina, solo dejamos el contenido de informacion de la misma.</li>
-        <li>En nuestra pagina "home.html" y ahora en todas las paginas que se creen en nuestro proyecto, extendemos desde layout, con el siguiente codigo:<br>
-            {porcentaje extends "appmain/layout.html" %} <br>
-            {porcentaje block content porcentaje} <br>
-            <br>
-            {porcentaje endblock porcentaje}</li>
-        <li>En la ventana terminal ejecutar el comando python manage.py runserver</li>
-    </ol>
-{% endblock %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metdata">
+                <h1>Guía para la generación de entorno virtual con Django y generación de templates HTML</h1>
+                <ol>
+                    <li>Crear carpeta contenedora del futuro proyecto a desarrollar</li>
+                    <li>Abrir terminal de editor de código</li>
+                    <li>Crear entorno virtual con el comando "python -m venv (nombre del entorno virtual)" + ENTER</li>
+                    <li>Activar el entorno virtual con el comando "(nombre del entorno virtual)\Scripts\activate" + ENTER</li>
+                    <li>Una vez activo el entorno virtual, instalar Django con el comando “pip install Django” + ENTER</li>
+                    <li>Una vez descargado el paquete de Django, confirmar que esté correctamente instalado con el comando “pip freeze” + ENTER para que muestre todas las librerías disponibles en el entorno virtual.</li>
+                    <li>Una vez confirmada la instalación de Django, ejecutar “django-admin” para visualizar la lista de comandos que posee la librería django.</li>
+                    <li>Una vez desplegada la lista de comandos de django, debemos generar nuestro primer proyecto en django, para esto debemos ejecutar el comando “django-admin startproject nombre del proyecto” + ENTER</li>
+                    <li>Una vez creado el proyecto, verifiquemos que nos ha creado el proyecto que hemos decidido con sus respectivas carpetas “.py”.</li>
+                    <li>Una vez verificado que se ha creado correctamente el proyecto con sus respectivas carpetas .py debemos correr django para verificar que las conexiones están OK, para esto debemos ejecutar “python manage.py runserver” + ENTER</li>
+                    <li>Una vez ejecutado el comando anterior en la terminal del editor de código, accedemos a la ruta "http://127.0.0.1" que nos generó para visualizar nuestra página.</li>
+                    <li>Posteriormente continuaremos creando un aplicativo ejecutando en la terminal “python manage.py startapp nombredelaplicativo”</li>
+                    <li>Se genera un archivo urls.py en el aplicativo, copiando la misma estructura de código que trae por defecto la carpeta del proyecto principal, borrando la importación de admin y el path de admin, ya que, este es propio del urls.py del archivo principal del proyecto.</li>
+                    <li>Posteriormente nos dirigimos al views.py (de la carpeta aplicativa) para crear nuestra función que renderizara nuestra futura vista HTML, (que crearemos más delante). Para activar la función render debemos importarla desde Django con la siguiente sentencia “from django.shortcuts import render”. Para la generación de la función, debemos darle como parámetro “request” + la ruta (ejemplo: (request,'appmain/home.html')) donde va a estar contenido nuestro HTML que vamos a crear posteriormente.</li>
+                    <p>from django.shortcuts import render <br>
+                        def yaru(request): <br>
+                        &nbsp &nbspreturn render(request,'appmain/home.html')</p>
+                    <li>Dentro del aplicativo appmain, creamos la carpeta "templates\appmain" que contendrá nuestros archivos html</li>
+                    <li>Se crea la plantilla de formato html que contendrá toda la estructura de nuestra página home</li>
+                    <li>En urls.py del aplicativo (appmain) enrutamos nuestra plantilla home con nuestro archivo views.py del aplicativo. Para esto debemos importar lo siguiente:</li>
+                    <p>from django.urls import path <br>
+                        from . import views <br>
+                        urlpatterns = [ <br>
+                        &nbsp &nbsppath('', views.yaru, name ='appmain' ) <br>
+                        ]
+                    </p>
+                        
+                    <li>En el urls.py del archivo principal realizamos el enrutamiento con el archivo urls.py del aplicativo de la siguiente forma:</li>
+                    <p>from django.contrib import admin <br>
+                        from django.urls import path, include <br>
+                        urlpatterns = [ <br>
+                            &nbsp &nbsppath('admin/', admin.site.urls), <br>
+                            &nbsp &nbsppath('', include('appmain.urls')) <br>
+                        ]</p>
+                    <li>Nos dirigimos al apps.py del aplicativo para copiar el nombre de la clase "AppmainConfig"</li>
+                    <li>Posteriormente nos dirigimos a settings.py del aplicativo principal para realizar la instalación del aplicativo appmain:</li>
+                    <p>
+                        INSTALLED_APPS = [ <br>
+                        'appmain.apps.AppmainConfig', <br>
+                        'django.contrib.admin', <br>
+                        'django.contrib.auth', <br>
+                        'django.contrib.contenttypes', <br>
+                        'django.contrib.sessions', <br>
+                        'django.contrib.messages', <br>
+                        'django.contrib.staticfiles', <br>
+                        ] <br>  
+                    </p>
+                    <li>En la ventana terminal ejecutar el comando python manage.py runserver</li>
+                </ol>
+                <h1>Guia de contenido dinamico</h1>
+                <ol>
+                    <li>Dentro de la aplicacion "appmain" se crea la carpeta "static" y dentro de esta carpeta, se crea la carpeta "css".</li>
+                    <li>Dentro de la ruta "static\css" creamos una hoja de estilo, en este caso con el nombre "estilos.css".</li>
+                    <li>Se ingresan aspectos de bootstrap, tal como colo de fondo, margen, etc.</li>
+                    <p>
+                        html, body { <br>
+                            &nbsp &nbsppathbackground-color: bisque; <br>
+                            &nbsp &nbsppath color: black; <br>
+                            &nbsp &nbsppathmargin-top: auto; <br>
+                        } <br>
+                        h1{ <br>
+                            color: brown; <br>
+                        }</p>
+                    <li>En nuestra pagina "home.html" utilizamos los CDN de Bootstrap en nuestro <head>, y dentro del <body>: <br>
+                        &nbsp< link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> <br>
+                        &nbsp< script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script><br>
+                        &nbsp< script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script></li>
+                    <li>En la pagina "home.html" recien creada debemos cargar la referencia a un objeto estatico. Definimos en la linea 1:<br>
+                        "{ porcetaje load static porcentaje }"</li>
+                    <li>En nuestra pagina "home.html" debemos referenciar nuestra hoja de estilo "estilos.css", dentro de la etiqueta < head >, con la siguiente instruccion: <br>
+                        &nbsp< link rel="stylesheet" type='text/css' href="{% static 'css/estilos.css' %"}></li>
+                    <li>Definimos ahora una nueva plantilla, para cargar clientes en nuestra base de datos. Ocupamos el modelo, por lo que abrimos el archivo models.py. Dejamos la importacion de models definida por defecto y creamos una clase de nombre Cliente (siempre en singular). Nuestra clase debe recibir como parametro "models.Models". De esta forma django entiende que esta clase se transforma en una base de datos.
+                        from django.db import models:</li>
+                        <p>
+                        class Cliente(models.Model):<br>
+                        &nbsp &nbsprut=models.CharField(max_length=10, unique=True)<br>
+                        &nbsp &nbspnombre=models.CharField(max_length=50)<br>
+                        &nbsp &nbspapellido=models.CharField(max_length=100)<br>
+                        &nbsp &nbspcorreo=models.CharField(max_length=50)<br>
+                        &nbsp &nbsptelefono=models.IntegerField()</p>
+                    <li>Para migrar esta clase a una tabla en la base de datos, debemos correr el script:<br>  
+                        python manage.py makemigrations</li>
+                    <li>Confirmamos la migracion de esta tabla con el script:<br>
+                        python manage.py migrate</li>
+                    <li>En nuestro terminal, debemos crear un super usuario de administracion a nivel de proyecto. Debemos estar dentro de la carpeta del proyecto raiz, para ejecutar el script: <br>
+                        python manage.py createsuperuser<br>
+                        Ingresamos usuario, correo y contraseña.</li>
+                    <li>En "admin.py" del aplicativo, ingresamos un from para importar desde el archivo models, la clase cliente. Y le indicamos a la administracion que en su sitio registre el uso de la administracion de la tabla Cliente.<br>
+                        from . models import Cliente<br>
+                        admin.site.register(Cliente)  </li>
+                    <li>Levantamos el servidor con el comando runserver e ingresamos /admin en la direccion del servidor:<br>
+                        http://127.0.0.1:8000/admin/</li>
+                    <li>Ingresamos usuario y contraseña de super usuario.</li>
+                    <li>Ahora podemos ingresar clientes. En nuestro caso, ingresamos cinco clientes.</li>
+                    <li>Ingresamos a "urls.py" del aplicativo y agregamos path para ver todos los datos de la tabla clientes:<br>
+                        path('clientes', views.clientes)</li>
+                    <li>En "views.py" del aplicativo, definimos la funcion clientes:<br>
+                        def clientes(request):<br>
+                        &nbsp&nbsp    return render(request, 'appmain.clientes.html')</li>
+                    <li>En la carpeta "templates\appmain" agregamos un nuevo archivo, de nombre "clientes.html".</li>
+                    <li>En "views.py" del aplicativo, importamos de models el Cliente:<br>
+                        from .models import Cliente</li>
+                    <li>Para consultar los clientes, debemos ingresar una query, por lo que en "views.py" del aplicativo, modificamos la funcion agregando un diccionario vacio. Creamos una variable cliente, que es igual a Clientes de la base de datos y buscamos dentros de sus objetos, todos sus datos.<br>
+                        Entonces en el diccionario vacio, mandamos todos los clientes que se consultan a nivel de base de datos.</li>
+                    <li>En el archivo "clientes.html", iteramos los datos a traves de un for. Abrimos llaves { % % } para inciar for y cerramos con { % endfor % }:<br>
+                        { % for cli in data % }<br>
+                        &nbsp&nbsp    { { cli.apellido } }<br>
+                        {% endfor % }</li>
+                    <li>Block content. Creamos un archivo "layout.html" dentro de "templates\appmain" la que contendra la base de nuestro html. con ! + Enter, cargamos la estructura HTML por defecto. Agregamos la referencia al archivo "estilos.css" y los links de bootstrap: <br>
+                        < link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" ><br>
+                        < script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script ><br>
+                        < script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script ><br>
+                        < link rel="stylesheet" type="text/css" href="{porcentaje_static 'appmain/estilos.css' porcentaje}" ></li>
+                    <li>Definimos un navbar y footer, basandonos en el esquema que necesitemos.</li>
+                    <li>Dentro del <body> de nuestra pagina "layout.html" agreamos las lineas  block content, las que nos permiten agregar contenido, de las paginas html de nuestro proyecto.<br>
+                        {porcentaje block content porcentaje}<br>
+                        <br>
+                        {porcentaje endblock porcentaje}<br></li>
+                    <li>Incluimos en la linea 1 de "layout.html" la referencia {porcentaje load static porcentaje}</li>
+                    <li>En nuestra pagina "home.html" eliminamos todo el contenido de estructura de la pagina, solo dejamos el contenido de informacion de la misma.</li>
+                    <li>En nuestra pagina "home.html" y ahora en todas las paginas que se creen en nuestro proyecto, extendemos desde layout, con el siguiente codigo:<br>
+                        {porcentaje extends "appmain/layout.html" %} <br>
+                        {porcentaje block content porcentaje} <br>
+                        <br>
+                        {porcentaje endblock porcentaje}</li>
+                    <li>En la ventana terminal ejecutar el comando python manage.py runserver</li>
+                </ol>
+            </div>
+        </div>        
+</article>
+{% endblock content %}
 

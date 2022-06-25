@@ -1,0 +1,15 @@
+{% extends 'appmain/layout.html' %}
+{% block content %}
+<form action= "/recibido" method="GET">
+    {% csrf_token %}
+    <input name="nombre" type="text" placeholder="Nombre">
+    <input name="email" type="email" placeholder="Email"/>
+    <textarea name="reclamo" cols="30" rows="5"></textarea>
+    <button type="submit">Enviar</button>
+</form>
+<h2>Nombre: {{nombre}}</h2>
+<h2>Correo: {{email}} </h2>
+<h2>Reclamo: {{comentario}} </h2>
+{% endblock content %}
+
+

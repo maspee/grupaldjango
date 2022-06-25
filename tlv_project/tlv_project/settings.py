@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'appmain.apps.AppmainConfig',
-    'user.apps.UserConfig'
+    'user.apps.UserConfig',
+    'blog.apps.BlogConfig'
 ]
 
 MIDDLEWARE = [
