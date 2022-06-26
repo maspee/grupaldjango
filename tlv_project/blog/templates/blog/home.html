@@ -4,9 +4,16 @@
 <h1>Blog</h1>
 
 {% for i in posts %}
-    <h1>{{i.titulo}}</h1>
-    <p> Publicado por: {{i.autor}} el dia {{i.fecha_publicacion}}</p>
-    <p>{{i.contenido}}</p>
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{i.autor}}</a>
+            <small class="text-muted">{{i.fecha_publicacion}}</small>
+        </div>
+        <h2><a class="article-title" href="{% url 'publicacion-detalle' i.id %}">{{i.titulo}}</a></h2>
+        <p class="article-content">{{i.contenido}}</p>
+    </div>
+</article>
 {% endfor %}
 
 {% endblock content%}
