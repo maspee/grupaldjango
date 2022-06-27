@@ -28,6 +28,7 @@
             <a class="nav-item nav-link" href="{% url 'appmain-reclamo' %}">Formulario Reclamo</a>
             <a class="nav-item nav-link" href="{% url 'appmain-contacto' %}">Formulario de Contacto</a>
             <a class="nav-item nav-link" href="{% url 'blog-home' %}">Blog</a>
+            <a class="nav-item nav-link" href="http://127.0.0.1:8000/publicacion/new">Nueva Publicacion Blog</a>
             <a class="nav-item nav-link" href="{% url 'perfil' %}">Perfil Usuario</a>
             <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
           {% else %} 
@@ -43,6 +44,12 @@
   <div class="container">
     <h1 class="cover-heading">Trabajo Grupal</h1>
   </div>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <img src="{% static 'appmain/banner.png' %}" alt="default.jpg">
+    </div>
+</div> 
+
   <main role="main" class="container">
     <div class="row">
         <div class="col-md-8">
