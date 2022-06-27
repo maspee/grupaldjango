@@ -126,6 +126,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'appmain'
 LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 
 
 # Default primary key field type
