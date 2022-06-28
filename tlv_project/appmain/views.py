@@ -61,3 +61,17 @@ def reclamo_detail(request):
             form.save()
     form= ReclamoForm()
     return render(request,'appmain/contacto.html', {'form': form})
+
+def obtenerClientes(request):
+    clientes= Cliente.objects.raw('select * from appmain_cliente')
+    for c in clientes:
+        print(c.rut, c.nombre, c. apellido)
+    print(clientes)
+    return render(request,'appmain/obtenerClientes.html')
+
+def obtenerClientesv2(request):
+    clientes= Cliente.objects.all()
+    for c in clientes:
+        print(c.rut, c.nombre, c.apellido)
+    print(clientes)
+    

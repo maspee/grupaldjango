@@ -8,6 +8,8 @@ from blog.views import PublicacionDetalle, PublicacionCrear, PublicacionActualiz
 urlpatterns = [
     path('', views.yaru, name ='appmain' ),
     path('clientes/', views.clientes, name='appmain-clientes'),
+    path('obtenerClientes/', views.obtenerClientes),
+    path('obtenerClientesv2', views.obtenerClientesv2),
     path('proveedor/', views.proveedor, name='appmain-proveedor'),
     path('reclamo/', views.reclamo, name= 'appmain-reclamo'),
     path('recibido/', views.recibido), 
